@@ -21,6 +21,7 @@ runs:
 
     # Supprimer le tag distant si nécessaire et recréer le tag
     - name: Supprimer le tag distant s'il existe déjà
+      shell: bash  
       run: |
         tag_name="${{ env.version }}" 
         # Vérifier si le tag existe déjà

@@ -17,3 +17,5 @@ jobs:
       # Exécuter l'action composite.
       - name: Exécuter l'action composite
         uses: ./action-directory/           # Appelle l'action personnalisée définie dans `action-directory`.
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Injecte le secret dans l'environnement.

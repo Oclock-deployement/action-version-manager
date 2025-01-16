@@ -34,5 +34,3 @@ runs:
         body: "Cette version contient les dernières mises à jour."                                # Description de la release.
         draft: false                                                                              # La release est immédiatement publiée (pas de brouillon).
         prerelease: false                                                                         # La release est considérée comme stable.
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}                                                 # Jeton GitHub nécessaire pour authentifier les actions.

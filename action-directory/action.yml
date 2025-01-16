@@ -23,20 +23,13 @@ runs:
     - name: Supprimer le tag distant s'il existe déjà
       shell: bash  
       run: |
-        tag_name="${{ env.version }}" 
-        # Vérifier si le tag existe déjà
-        if git ls-remote --tags origin $tag_name; then
-          echo "Le tag $tag_name existe déjà. Suppression du tag distant."
-          git push --delete origin $tag_name                        # Supprime le tag distant
-          git tag -d $tag_name                                      # Supprime le tag localement
-        fi
-
-    # Créer un tag avec la version
-    - name: Créer un tag pour la version
-      shell: bash                                 
-      run: |
-        git tag ${{ env.version }}                                                                # Crée un tag Git avec le numéro de version lu précédemment.
-        git push origin ${{ env.version }}                                                        # Pousse le tag vers le dépôt distant.
+        tag_name="v1.0.1"  # Récupérer la version
+        # Supprimer le tag localement s'il existe déjà
+        git tag -d $tag_name || echo "Le tag $tag_name n'existe pas localement"
+        # Créer un nouveau tag avec la version
+        git tag $tag_name
+        # Pousser le tag à distance
+        git push origin $tag_name --force
 
     # Publier une release GitHub
     - name: Publier une release

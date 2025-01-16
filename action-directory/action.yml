@@ -6,18 +6,21 @@ runs:
   using: "composite"                                                                              # Spécifie que cette action est composite.
   steps:
     # Loguer un événement de push
-    - name: Log push event                                                                        # Nom de l'étape.
+    - name: Log push event
+      shell: bash  # Spécifie le shell utilisé pour cette étape.                                                                       # Nom de l'étape.
       run: echo "Un push a été détecté sur la branche ${{ github.ref }}."                         # Affiche un message avec la branche affectée.
 
     # Lire la version depuis un fichier VERSION
     - name: Lire la version
+      shell: bash  # Spécifie le shell utilisé pour cette étape.
       id: get_version                                                                             # Identifiant unique pour référencer cette étape plus tard.
       run: |
         version=$(cat VERSION)                                                                    # Lit le numéro de version depuis le fichier VERSION.
         echo "version=$version" >> $GITHUB_ENV                                                    # Ajoute cette version à l'environnement GitHub pour utilisation ultérieure.
 
     # Créer un tag avec la version
-    - name: Créer un tag pour la version                                                          # Nom de l'étape.
+    - name: Créer un tag pour la version
+      shell: bash  # Spécifie le shell utilisé pour cette étape.                                                          # Nom de l'étape.
       run: |
         git tag ${{ env.version }}                                                                # Crée un tag Git avec le numéro de version lu précédemment.
         git push origin ${{ env.version }}                                                        # Pousse le tag vers le dépôt distant.

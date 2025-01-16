@@ -20,16 +20,16 @@ runs:
         echo "version=$version" >> $GITHUB_ENV                                                    # Ajoute cette version à l'environnement GitHub pour utilisation ultérieure.
 
     # Supprimer le tag distant si nécessaire et recréer le tag
-      - name: Supprimer le tag distant s'il existe déjà
-        run: |
-          tag_name="${{ env.version }}"  # Utilise la version lue
-          # Vérifier si le tag existe déjà
-          if git ls-remote --tags origin $tag_name; then
-            echo "Le tag $tag_name existe déjà. Suppression du tag distant."
-            git push --delete origin $tag_name  # Supprime le tag distant
-            git tag -d $tag_name  # Supprime le tag localement
-          fi
-          
+    - name: Supprimer le tag distant s'il existe déjà
+      run: |
+        tag_name="${{ env.version }}" 
+        # Vérifier si le tag existe déjà
+        if git ls-remote --tags origin $tag_name; then
+          echo "Le tag $tag_name existe déjà. Suppression du tag distant."
+          git push --delete origin $tag_name                        # Supprime le tag distant
+          git tag -d $tag_name                                      # Supprime le tag localement
+        fi
+
     # Créer un tag avec la version
     - name: Créer un tag pour la version
       shell: bash                                 

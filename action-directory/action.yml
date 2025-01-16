@@ -15,7 +15,8 @@ runs:
       shell: bash                                                                                 
       id: get_version                                                                             # Identifiant unique pour référencer cette étape
       run: |
-        version=$(cat VERSION)                                                                    # Lit le numéro de version depuis le fichier VERSION.
+        version=$(tail -n 1 VERSION)                                                              # Récupère la dernière version dans le fichier VERSION
+        echo "Dernière version lue : $version"                                                    # Lit le numéro de version depuis le fichier VERSION.
         echo "version=$version" >> $GITHUB_ENV                                                    # Ajoute cette version à l'environnement GitHub pour utilisation ultérieure.
 
     # Créer un tag avec la version

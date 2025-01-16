@@ -9,3 +9,5 @@
 ## Nomenclature commit
 
 https://www.conventionalcommits.org/fr/v1.0.0-beta.3/
+
+https://github.com/actions/create-release

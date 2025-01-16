@@ -12,7 +12,7 @@ jobs:
     steps:
       # Vérifier et cloner le dépôt.
       - name: Checkout repository
-        uses: actions/checkout@v3           # Utilise l'action officielle pour cloner le dépôt dans l'environnement.
+        uses: actions/checkout@v4           # Utilise l'action officielle pour cloner le dépôt dans l'environnement.
 
       # Exécuter l'action composite.
       - name: Exécuter l'action composite

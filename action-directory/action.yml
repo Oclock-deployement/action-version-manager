@@ -23,13 +23,10 @@ runs:
     - name: Supprimer le tag distant s'il existe déjà
       shell: bash  
       run: |
-        tag_name="v1.0.1"  # Récupérer la version
-        # Supprimer le tag localement s'il existe déjà
-        git tag -d $tag_name || echo "Le tag $tag_name n'existe pas localement"
-        # Créer un nouveau tag avec la version
-        git tag $tag_name
-        # Pousser le tag à distance
-        git push origin $tag_name --force
+        tag_name="v1.0.1"                                                                         # Récupérer la version
+        git tag -d $tag_name || echo "Le tag $tag_name n'existe pas localement"                   # Supprimer le tag localement s'il existe déjà
+        git tag $tag_name                                                                         # Créer un nouveau tag avec la version
+        git push origin $tag_name --force                                                         # Pousser le tag à distance
 
     # Publier une release GitHub
     - name: Publier une release

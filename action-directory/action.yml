@@ -1,0 +1,35 @@
+name: "Log Push & Manage Release"                                                                 # Nom de l'action affiché dans les workflows.
+description: "Écrit un message dans les logs, gère les versions et déploie sur le Marketplace."   # Description courte de l'action.
+author: "Votre Nom"                                                                               # Auteur de l'action, utile pour l'identification.
+
+runs:
+  using: "composite"                                                                              # Spécifie que cette action est composite.
+  steps:
+    # Loguer un événement de push
+    - name: Log push event                                                                        # Nom de l'étape.
+      run: echo "Un push a été détecté sur la branche ${{ github.ref }}."                         # Affiche un message avec la branche affectée.
+
+    # Lire la version depuis un fichier VERSION
+    - name: Lire la version
+      id: get_version                                                                             # Identifiant unique pour référencer cette étape plus tard.
+      run: |
+        version=$(cat VERSION)                                                                    # Lit le numéro de version depuis le fichier VERSION.
+        echo "version=$version" >> $GITHUB_ENV                                                    # Ajoute cette version à l'environnement GitHub pour utilisation ultérieure.
+
+    # Créer un tag avec la version
+    - name: Créer un tag pour la version                                                          # Nom de l'étape.
+      run: |
+        git tag ${{ env.version }}                                                                # Crée un tag Git avec le numéro de version lu précédemment.
+        git push origin ${{ env.version }}                                                        # Pousse le tag vers le dépôt distant.
+
+    # Publier une release GitHub
+    - name: Publier une release
+      uses: actions/create-release@v2                                                             # Utilise une action GitHub pour créer une release.
+      with:
+        tag_name: ${{ env.version }}                                                              # Associe la release au tag créé.
+        release_name: "Version ${{ env.version }}"                                                # Nom de la release.
+        body: "Cette version contient les dernières mises à jour."                                # Description de la release.
+        draft: false                                                                              # La release est immédiatement publiée (pas de brouillon).
+        prerelease: false                                                                         # La release est considérée comme stable.
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}                                                 # Jeton GitHub nécessaire pour authentifier les actions.

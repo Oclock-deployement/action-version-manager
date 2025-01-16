@@ -27,7 +27,7 @@ runs:
 
     # Publier une release GitHub
     - name: Publier une release
-      uses: actions/create-release@v2                                                             # Utilise une action GitHub pour créer une release.
+      uses: actions/create-release@latest                                                             # Utilise une action GitHub pour créer une release.
       with:
         tag_name: ${{ env.version }}                                                              # Associe la release au tag créé.
         release_name: "Version ${{ env.version }}"                                                # Nom de la release.

@@ -1,9 +1,9 @@
 name: Publier une nouvelle version
 
 on:
-  push:                                     # Déclencheur du workflow.
+  push:                                     
     branches:
-      - main                                # Le workflow s'exécute uniquement sur des pushs dans la branche `main`.
+      - main                               
 
 jobs:
   publish-release:
@@ -12,10 +12,10 @@ jobs:
     steps:
       # Vérifier et cloner le dépôt.
       - name: Checkout repository
-        uses: actions/checkout@v4           # Utilise l'action officielle pour cloner le dépôt dans l'environnement.
+        uses: actions/checkout@v4           
 
       # Exécuter l'action composite.
       - name: Exécuter l'action composite
-        uses: ./action-directory/           # Appelle l'action personnalisée définie dans `action-directory`.
+        uses: ./action-directory/
         env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Injecte le secret dans l'environnement.
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
